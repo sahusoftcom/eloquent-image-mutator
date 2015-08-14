@@ -13,13 +13,19 @@ Relating an image with a model is always a pain. Eloquent Image Mutator provides
 ## Retrieving images with Model
 
 ```
-    // $user->profile_picture->thumbnail
-    // $user->profile_picture->xsmall
-    // $user->profile_picture->small
-    // $user->profile_picture->profile
-    // $user->profile_picture->medium
-    // $user->profile_picture->large
+     $user->profile_picture->thumbnail
+     $user->profile_picture->xsmall
+     $user->profile_picture->small
+     $user->profile_picture->profile
+     $user->profile_picture->medium
+     $user->profile_picture->large
 ```
+
+Eg (In blade file):-
+
+ ```
+    <img src="{{ $user->profile_picture->profile }}" />
+ ```
 
 ## Installation
 
