@@ -103,7 +103,7 @@ For example:
 	     *
 	     * @var array
 	     */
-	    protected $fillable = ['profile_picture', 'acn'];
+	    protected $fillable = ['profile_picture', 'cover_photo'];
 
 	    /**
 	     * The attributes excluded from the model's JSON form.
