@@ -58,7 +58,6 @@ Add the following line to the `require` section of `composer.json`:
 	```
 
 ## How to use
-Once its set up. You could use it as shown below.
 
 1. The field against which you want to store the image should be of type `text`.
 2. You should use the `ImageFieldTrait` in the Model.
