@@ -1,7 +1,20 @@
-Sahusoft Image Mutator
-=========
+Eloquent Image Mutator
+======================
 
-A Image Mutator for Laravel 5. 
+Relating an image with a model is always a pain. Eloquent Image Mutator provides an easy mutator for Eloquent models to save and retrieve images.
+
+## Storing images with Model
+
+```
+    $user->profile_picture = \Input::file('image');
+    $user->save();
+```
+
+## Retrieving images with Model
+
+```
+    // $user->profile_picture->thumbnail
+```
 
 ## Installation
 
@@ -38,7 +51,11 @@ Add the following line to the `require` section of `composer.json`:
 	```
 	ln -s relative-path-to-destination-folder uploads
 	```
-	
+
+## How to use
+--- coming soon ---
+
+
 ## Customization
 
 You could customize the target folder where the images are stored. For customizing goto `config/image.php`. Line no 6
