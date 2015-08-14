@@ -79,7 +79,7 @@ For example:
 	use Illuminate\Database\Eloquent\Model;
 	use SahusoftCom\EloquentImageMutator\ImageFieldTrait;
 
-	class Image extends Model
+	class User extends Model
 	{
 
 	   	use ImageFieldTrait;
@@ -118,7 +118,29 @@ For example:
 	}
 	```
 
-Thanks Enjoy!
+And to then with the user object you can just use it like a property
+
+Example:
+
+*Storing images with Model*
+
+```
+    $user->profile_picture = \Input::file('image');
+    $user->save();
+```
+
+*Retrieving images with Model*
+
+```
+     $user->profile_picture->thumbnail
+     $user->profile_picture->xsmall
+     $user->profile_picture->small
+     $user->profile_picture->profile
+     $user->profile_picture->medium
+     $user->profile_picture->large
+```
+
+Thanks!
 
 ## Customization
 
