@@ -1,7 +1,25 @@
-Sahusoft Image Mutator
-=========
+Eloquent Image Mutator
+======================
 
-A Image Mutator for Laravel 5. 
+Relating an image with a model is always a pain. Eloquent Image Mutator provides an easy mutator for Eloquent models to save and retrieve images.
+
+## Storing images with Model
+
+```
+    $user->profile_picture = \Input::file('image');
+    $user->save();
+```
+
+## Retrieving images with Model
+
+```
+    // $user->profile_picture->thumbnail
+    // $user->profile_picture->xsmall
+    // $user->profile_picture->small
+    // $user->profile_picture->profile
+    // $user->profile_picture->medium
+    // $user->profile_picture->large
+```
 
 ## Installation
 
@@ -38,17 +56,8 @@ Add the following line to the `require` section of `composer.json`:
 	```
 	ln -s relative-path-to-destination-folder uploads
 	```
-	
-## Customization
-
-You could customize the target folder where the images are stored. For customizing goto `config/image.php`. Line no 6
-```
-'assets_upload_path' => 'storage/app/uploads',
-```
-and change the destination to your desired folder. Make sure the destination folder has all the permissions and the soft link in the public folder is pointing to the destionation folder.
 
 ## How to use
-
 Once its set up. You could use it as shown below.
 
 1. The field against which you want to store the image should be of type `text`.
@@ -65,7 +74,7 @@ For example:
 	use Illuminate\Database\Eloquent\Model;
 	use SahusoftCom\EloquentImageMutator\ImageFieldTrait;
 
-	class UploadPhotoTest extends Model
+	class Image extends Model
 	{
 
 	   	use ImageFieldTrait;
@@ -75,21 +84,21 @@ For example:
 	   	 *
 	   	 * @var array
 	   	 */
-	   	protected $photo_fields = ['photo_one', 'photo_two', 'photo_three'];
+	   	protected $photo_fields = ['profile_picture', 'cover_photo'];
 	    
 	    /**
 	     * The database table used by the model.
 	     *
 	     * @var string
 	     */
-	    protected $table = 'upload_photo_test';
+	    protected $table = 'image';
 
 	    /**
 	     * The attributes that are mass assignable.
 	     *
 	     * @var array
 	     */
-	    protected $fillable = ['photo_one', 'photo_two', 'photo_three'];
+	    protected $fillable = ['profile_picture', 'acn'];
 
 	    /**
 	     * The attributes excluded from the model's JSON form.
@@ -105,3 +114,11 @@ For example:
 	```
 
 Thanks Enjoy!
+
+## Customization
+
+You could customize the target folder where the images are stored. For customizing goto `config/image.php`. Line no 6
+```
+'assets_upload_path' => 'storage/app/uploads',
+```
+and change the destination to your desired folder. Make sure the destination folder has all the permissions and the soft link in the public folder is pointing to the destionation folder.
