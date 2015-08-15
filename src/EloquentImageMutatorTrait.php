@@ -2,8 +2,9 @@
 
 namespace SahusoftCom\EloquentImageMutator;
 
-trait ImageFieldTrait 
+trait EloquentImageMutatorTrait 
 {
+
     public $imagine=null;
 
     protected function getImagineObject() 
@@ -26,9 +27,9 @@ trait ImageFieldTrait
     {
         $value = parent::getAttributeValue($key);
 
-        if (in_array($key, $this->photo_fields))
+        if(in_array($key, $this->image_fields))
         {
-            $value = $this->getPhotoAttribute($key, $value);
+            $value = $this->retrievePhotoFieldValue($key, $value);
         }
         
         return $value;
@@ -36,7 +37,7 @@ trait ImageFieldTrait
 
     public function setAttribute($key, $value)
     {
-        if (in_array($key, $this->photo_fields) && $value)
+        if (in_array($key, $this->image_fields) && $value)
         {
             return $this->setPhotoAttribute($key, $value);
         }
@@ -44,7 +45,7 @@ trait ImageFieldTrait
         return parent::setAttribute($key, $value);
     }
 
-    public function getPhotoAttribute($key, $value)
+    public function retrievePhotoFieldValue($key, $value)
     {
         if(empty($value)) {
 

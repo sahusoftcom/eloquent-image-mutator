@@ -44,7 +44,7 @@ Add the following line to the `require` section of `composer.json`:
 1. In `/config/app.php`, add the following to `providers`:
   
   ```
-  SahusoftCom\EloquentImageMutator\ImageMutatorProvider::class,
+  SahusoftCom\EloquentImageMutator\EloquentImageMutatorProvider::class,
   ```
   
 2. Run `php artisan vendor:publish`.
@@ -66,7 +66,7 @@ Add the following line to the `require` section of `composer.json`:
 ## How to use
 
 1. The field against which you want to store the image should be of type `text`.
-2. You should use the `ImageFieldTrait` in the Model.
+2. You should use the `EloquentImageMutatorTrait` in the Model.
 2. Define the columns you want to inculde for image uploads.
 
 For example: 
@@ -77,19 +77,19 @@ For example:
 	namespace App;
 
 	use Illuminate\Database\Eloquent\Model;
-	use SahusoftCom\EloquentImageMutator\ImageFieldTrait;
+	use SahusoftCom\EloquentImageMutator\EloquentImageMutatorTrait;
 
 	class User extends Model
 	{
 
-	   	use ImageFieldTrait;
+	   	use EloquentImageMutatorTrait;
 
 	   	/**
 	   	 * The photo fields should be listed here.
 	   	 *
 	   	 * @var array
 	   	 */
-	   	protected $photo_fields = ['profile_picture', 'cover_photo'];
+	   	protected $image_fields = ['profile_picture', 'cover_photo'];
 	    
 	    /**
 	     * The database table used by the model.

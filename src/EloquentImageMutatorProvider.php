@@ -4,7 +4,7 @@ namespace SahusoftCom\EloquentImageMutator;
 
 use Illuminate\Support\ServiceProvider;
 
-class ImageMutatorProvider extends ServiceProvider
+class EloquentImageMutatorProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
