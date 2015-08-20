@@ -64,7 +64,7 @@ trait EloquentImageMutatorTrait
             
             foreach($result as $key => &$item) {
 
-                $stdClass->$key = asset('/uploads/'.$item['urn']);
+                $stdClass->$key = asset('/'.\Config::get('image.upload_dir').'/'.$item['urn']);
             }
 
         }
