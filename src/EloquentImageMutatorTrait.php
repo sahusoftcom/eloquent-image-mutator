@@ -16,7 +16,8 @@ trait EloquentImageMutatorTrait
         if(in_array($key, $this->image_fields))
         {
             $value = $this->retrievePhotoFieldValue($key, $value);
-            if(!file_exists(public_path().$value->orignal->url)){
+
+            if(!file_exists(public_path().$value->orignal->url) || empty($value->orignal->url)) {
                 $value = ImageService::getImageObject();
                 $this->attributes[$key] = $value->toJson();
             }
@@ -29,6 +30,9 @@ trait EloquentImageMutatorTrait
     {
         if (in_array($key, $this->image_fields) && $value)
         {
+            if(empty($value))
+                return parent::setAttribute($key, $value);
+
             switch (get_class($value)) {
 
                 case 'Symfony\Component\HttpFoundation\File\UploadedFile':
