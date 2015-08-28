@@ -64,6 +64,10 @@ trait EloquentImageMutatorTrait
             
             if(count($imageFields) > 0) {
                 foreach ($imageFields as $key => $value) {
+                    
+                    if(empty($oldObject[$value]))
+                        continue;
+
                     $imageObject = ImageService::getImageObject($oldObject[$value]);
                     if($imageObject && !empty($imageObject->orignal->url) && $model->$value->orignal->url != $imageObject->orignal->url) {
                         $imageObject->delete();
