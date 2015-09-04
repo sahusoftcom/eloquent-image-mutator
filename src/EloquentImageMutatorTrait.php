@@ -32,20 +32,27 @@ trait EloquentImageMutatorTrait
         {
             if(empty($value))
                 return parent::setAttribute($key, $value);
+            
+            if(is_string($value)) {
+            
+                return $this->setImageAttributeForUrlImage($key, $value);
+            
+            } else {
 
-            switch (get_class($value)) {
+                switch (get_class($value)) {
 
-                case 'Symfony\Component\HttpFoundation\File\UploadedFile':
-                        return $this->setImageAttributeForUploadedFileObject($key, $value);
-                    break;
-                case 'SahusoftCom\EloquentImageMutator\Dist\ImageFieldLocal':
-                        return $this->setImageAttributeForImageFieldLocalObject($key, $value);
-                    break;
-                
-                // case 'value':
-                //     # code...
-                //     break;
-                
+                    case 'Symfony\Component\HttpFoundation\File\UploadedFile':
+                            return $this->setImageAttributeForUploadedFileObject($key, $value);
+                        break;
+                    case 'SahusoftCom\EloquentImageMutator\Dist\ImageFieldLocal':
+                            return $this->setImageAttributeForImageFieldLocalObject($key, $value);
+                        break;
+                    
+                    // case 'value':
+                    //     # code...
+                    //     break;
+                    
+                }
             }
 
         }
@@ -105,6 +112,12 @@ trait EloquentImageMutatorTrait
     public function setImageAttributeForImageFieldLocalObject($key, $value)
     {
         $imageFieldObject = ImageService::copyImage($key, $value);
+        $this->attributes[$key] = $imageFieldObject->toJson();
+    }
+
+    public function setImageAttributeForUrlImage($key, $value)
+    {
+        $imageFieldObject = ImageService::downloadImage($key, $value);
         $this->attributes[$key] = $imageFieldObject->toJson();
     }
 

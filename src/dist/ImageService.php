@@ -77,6 +77,31 @@ class ImageService
 	    return $imageObj;
 	}
 
+	public static function downloadImage($key, $value)
+	{
+	    $fileObject = new \SplFileInfo($value);		
+
+		$destination = ImageService::getANewFileName($fileObject->getExtension());
+		$destinationDirectory = ImageService::getUploadStoragePath().'/'.dirname($destination);
+		if(!\File::isDirectory($destinationDirectory))
+		    \File::makeDirectory($destinationDirectory, 0777, true);
+
+		file_put_contents($destinationDirectory.'/'.basename($destination), file_get_contents($value));
+		$urn = ImageService::makeFromFile($destination, basename($destination));
+		$allTheSizes = ImageService::getAllTheSizes($urn);
+		$arrayForDB = [];
+
+		foreach ($allTheSizes as $keyTwo => $value) {
+		    $arrayForDB[$keyTwo]['url'] = !empty($value['urn']) ? '/'.\Config::get('image.upload_dir').'/'.$value['urn'] : null;
+		    $arrayForDB[$keyTwo]['height'] = !empty($value['height']) ? $value['height'] : null;
+		    $arrayForDB[$keyTwo]['width'] = !empty($value['width']) ? $value['width'] : null;
+		}
+		$arrayForDB['orignal']['url'] = !empty($urn) ? '/'.\Config::get('image.upload_dir').'/'.$urn : null;
+
+		$imageObj = new ImageFieldLocal($arrayForDB);
+		return $imageObj;
+	}
+
 	public static function getANewFolder()
 	{
 	    return  'user/'.date('Y/m/d/i/s');
