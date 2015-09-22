@@ -139,7 +139,7 @@ For example:
 	     *
 	     * @var string
 	     */
-	    protected $table = 'image';
+	    protected $table = 'users';
 
 	    /**
 	     * The attributes that are mass assignable.
