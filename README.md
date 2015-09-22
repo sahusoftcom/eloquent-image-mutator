@@ -64,11 +64,11 @@ Eg (In blade file):-
  ```
 ## Update Or Delete Images
 
-If you update a field with a new image the previously stored image is automatically deleted from the system.
+If you update a field with a new image the old image is deleted from the system.
 
 OR
 
-If you delete a record from a the table the image is automatically deleted.
+If you delete a record from a the table the image is deleted.
 
 ## Installation
 
