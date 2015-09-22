@@ -5,10 +5,38 @@ Relating an image with a model is always a pain. Eloquent Image Mutator provides
 
 ## Storing images with Model
 
+Upload using a form
+
 ```
     $user->profile_picture = \Input::file('image');
     $user->save();
 ```
+
+OR
+
+Upload using a public URL (We will download and store the image for you)
+
+```
+    $user->profile_picture = https://scontent.fbom1-2.fna.fbcdn.net/hprofile-xaf1/v/t1.0-1/p160x160/11659393_10207093577848521_887484828555984342_n.jpg?oh=089042c5f4afa05e0dcbde51130c0eea&oe=56689CB9;
+    $user->save();
+```
+
+OR
+
+Copy already present Image Object
+
+```
+	$user->profile_picture = $user->photo_one;
+	$user->save();
+```
+
+note:- 
+
+The `$user->photo_one` should be a added to
+	`protected $image_fields` 
+
+And its model should 
+	`use EloquentImageMutatorTrait;`
 
 ## Retrieving images with Model
 
@@ -34,6 +62,13 @@ Eg (In blade file):-
  ```
     <img src="{{ $user->profile_picture->profile->url }}" />
  ```
+## Update Or Delete Images
+
+If you update a field with a new image the previously stored image is automatically deleted from the system.
+
+OR
+
+If you delete a record from a the table the image is automatically deleted.
 
 ## Installation
 
