@@ -47,7 +47,7 @@ And its model should
      $user->profile_picture->profile->url
      $user->profile_picture->medium->url
      $user->profile_picture->large->url
-     $user->profile_picture->orignal->url
+     $user->profile_picture->original->url
 ```
 
 You can even access the height and width
@@ -181,7 +181,7 @@ Example:
      $user->profile_picture->profile->url
      $user->profile_picture->medium->url
      $user->profile_picture->large->url
-     $user->profile_picture->orignal->url
+     $user->profile_picture->original->url
 ```
 
 Thanks!
