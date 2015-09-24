@@ -32,13 +32,13 @@ class ImageService
 
 	public static function copyImage($key, $value)
 	{
-		$fileObject = new \SplFileInfo(public_path().$value->orignal->url);		
+		$fileObject = new \SplFileInfo(public_path().$value->original->url);		
 		$destination = ImageService::getANewFileName($fileObject->getExtension());
 		$destinationDirectory = ImageService::getUploadStoragePath().'/'.dirname($destination);
 		if(!\File::isDirectory($destinationDirectory))
 		    \File::makeDirectory($destinationDirectory, 0777, true);
 
-		copy(public_path().$value->orignal->url, $destinationDirectory.'/'.basename($destination));
+		copy(public_path().$value->original->url, $destinationDirectory.'/'.basename($destination));
 		$urn = ImageService::makeFromFile($destination, basename($destination));
 		$allTheSizes = ImageService::getAllTheSizes($urn);
 		$arrayForDB = [];
@@ -48,7 +48,7 @@ class ImageService
 		    $arrayForDB[$keyTwo]['height'] = !empty($value['height']) ? $value['height'] : null;
 		    $arrayForDB[$keyTwo]['width'] = !empty($value['width']) ? $value['width'] : null;
 		}
-		$arrayForDB['orignal']['url'] = !empty($urn) ? '/'.\Config::get('image.upload_dir').'/'.$urn : null;
+		$arrayForDB['original']['url'] = !empty($urn) ? '/'.\Config::get('image.upload_dir').'/'.$urn : null;
 
 		$imageObj = new ImageFieldLocal($arrayForDB);
 		return $imageObj;
@@ -71,7 +71,7 @@ class ImageService
 	        $arrayForDB[$keyTwo]['height'] = !empty($value['height']) ? $value['height'] : null;
 	        $arrayForDB[$keyTwo]['width'] = !empty($value['width']) ? $value['width'] : null;
 	    }
-	    $arrayForDB['orignal']['url'] = !empty($urn) ? '/'.\Config::get('image.upload_dir').'/'.$urn : null;
+	    $arrayForDB['original']['url'] = !empty($urn) ? '/'.\Config::get('image.upload_dir').'/'.$urn : null;
 
 	    $imageObj = new ImageFieldLocal($arrayForDB);
 	    return $imageObj;
@@ -96,7 +96,7 @@ class ImageService
 		    $arrayForDB[$keyTwo]['height'] = !empty($value['height']) ? $value['height'] : null;
 		    $arrayForDB[$keyTwo]['width'] = !empty($value['width']) ? $value['width'] : null;
 		}
-		$arrayForDB['orignal']['url'] = !empty($urn) ? '/'.\Config::get('image.upload_dir').'/'.$urn : null;
+		$arrayForDB['original']['url'] = !empty($urn) ? '/'.\Config::get('image.upload_dir').'/'.$urn : null;
 
 		$imageObj = new ImageFieldLocal($arrayForDB);
 		return $imageObj;

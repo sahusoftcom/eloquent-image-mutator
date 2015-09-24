@@ -15,12 +15,17 @@ class ImageFieldLocal implements ImageFieldInerface
 		    foreach ($dimensions as $key => $value) {
 		    	$this->$value[4] = new ImageFile();
 		    }
-		    $this->orignal = new ImageFile();
+		    $this->original = new ImageFile();
 		    return $this;
 		}
 		
 		foreach ($dimensions as $key => $value) {
-			$this->$key = new ImageFile();
+
+			if($key == 'orignal'){
+				$this->original = new ImageFile();
+			} else {
+				$this->$key = new ImageFile();
+			}
 			$this->$key->url = !empty($value['url']) ? $value['url'] : null;
 			$this->$key->height = !empty($value['height']) ? $value['height'] : null;
 			$this->$key->width = !empty($value['width']) ? $value['width'] : null;

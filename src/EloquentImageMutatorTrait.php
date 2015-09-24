@@ -17,7 +17,7 @@ trait EloquentImageMutatorTrait
         {
             $value = $this->retrievePhotoFieldValue($key, $value);
 
-            if(!file_exists(public_path().$value->orignal->url) || empty($value->orignal->url)) {
+            if(!file_exists(public_path().$value->original->url) || empty($value->original->url)) {
                 $value = ImageService::getImageObject();
                 $this->attributes[$key] = $value->toJson();
             }
@@ -76,7 +76,7 @@ trait EloquentImageMutatorTrait
                         continue;
 
                     $imageObject = ImageService::getImageObject($oldObject[$value]);
-                    if($imageObject && !empty($imageObject->orignal->url) && $model->$value->orignal->url != $imageObject->orignal->url) {
+                    if($imageObject && !empty($imageObject->original->url) && $model->$value->original->url != $imageObject->original->url) {
                         $imageObject->delete();
                     }
                 }
