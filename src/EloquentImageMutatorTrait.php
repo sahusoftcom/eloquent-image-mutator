@@ -121,6 +121,19 @@ trait EloquentImageMutatorTrait
         $this->attributes[$key] = $imageFieldObject->toJson();
     }
 
+    public function toArray()
+    {
+        $arr = parent::toArray();
+        foreach ($arr as $key => $value) {
+            if(in_array($key, $this->image_fields))
+            {
+                if(!empty($value))
+                    $arr[$key] = json_decode($value, true);
+            }
+        }
+        return $arr;
+    }
+
     // public function setImageAttributeForUrlString($key, $value)
     // {
     //     return $this->setImageAttributeForFileObject($key, $value);
