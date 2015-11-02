@@ -3,7 +3,6 @@
 namespace SahusoftCom\EloquentImageMutator;
 
 use SahusoftCom\EloquentImageMutator\Dist\ImageService;
-use SahusoftCom\EloquentImageMutator\Dist\ImageField;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait EloquentImageMutatorTrait 
