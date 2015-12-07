@@ -13,7 +13,7 @@ class ImageFieldLocal implements ImageFieldInerface
 		if(count($dimensions) < 1){
 			$dimensions = Config::get('image.dimensions');
 		    foreach ($dimensions as $key => $value) {
-		    	$this->$value[4] = new ImageFile();
+		    	$this->{$value[4]} = new ImageFile();
 		    }
 		    $this->orignal = new ImageFile();
 		    $this->original = new ImageFile();
