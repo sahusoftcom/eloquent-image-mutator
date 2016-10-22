@@ -44,9 +44,6 @@ trait EloquentImageMutatorTrait
                     case 'Illuminate\Http\UploadedFile':
                             return $this->setImageAttributeForUploadedFileObject($key, $value);
                         break;
-                    case 'Illuminate\Http\UploadedFile':
-                            return $this->setImageAttributeForUploadedFileObject($key, $value);
-                        break;
                     case 'SahusoftCom\EloquentImageMutator\Dist\ImageFieldLocal':
                             return $this->setImageAttributeForImageFieldLocalObject($key, $value);
                         break;
