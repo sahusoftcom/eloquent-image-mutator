@@ -41,6 +41,7 @@ trait EloquentImageMutatorTrait
                 switch (get_class($value)) {
 
                     case 'Symfony\Component\HttpFoundation\File\UploadedFile':
+                    case 'Illuminate\Http\UploadedFile':
                             return $this->setImageAttributeForUploadedFileObject($key, $value);
                         break;
                     case 'SahusoftCom\EloquentImageMutator\Dist\ImageFieldLocal':
