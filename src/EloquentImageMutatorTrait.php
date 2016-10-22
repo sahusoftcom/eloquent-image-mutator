@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 namespace SahusoftCom\EloquentImageMutator;
 
 use SahusoftCom\EloquentImageMutator\Dist\ImageService;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-trait EloquentImageMutatorTrait 
+trait EloquentImageMutatorTrait
 {
 
     public function getAttributeValue($key)
@@ -31,11 +31,11 @@ trait EloquentImageMutatorTrait
         {
             if(empty($value))
                 return parent::setAttribute($key, $value);
-            
+
             if(is_string($value)) {
-            
+
                 return $this->setImageAttributeForUrlImage($key, $value);
-            
+
             } else {
 
                 switch (get_class($value)) {
@@ -44,14 +44,17 @@ trait EloquentImageMutatorTrait
                     case 'Illuminate\Http\UploadedFile':
                             return $this->setImageAttributeForUploadedFileObject($key, $value);
                         break;
+                    case 'Illuminate\Http\UploadedFile':
+                            return $this->setImageAttributeForUploadedFileObject($key, $value);
+                        break;
                     case 'SahusoftCom\EloquentImageMutator\Dist\ImageFieldLocal':
                             return $this->setImageAttributeForImageFieldLocalObject($key, $value);
                         break;
-                    
+
                     // case 'value':
                     //     # code...
                     //     break;
-                    
+
                 }
             }
 
@@ -68,10 +71,10 @@ trait EloquentImageMutatorTrait
         {
             $oldObject = $model->getOriginal();
             $imageFields = $model->image_fields;
-            
+
             if(count($imageFields) > 0) {
                 foreach ($imageFields as $key => $value) {
-                    
+
                     if(empty($oldObject[$value]))
                         continue;
 
@@ -87,7 +90,7 @@ trait EloquentImageMutatorTrait
         static::deleted(function($model)
         {
             $imageFields = $model->image_fields;
-            
+
             if(count($imageFields) > 0) {
                 foreach ($imageFields as $key => $value) {
                     $model->$value->delete();
