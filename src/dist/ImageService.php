@@ -248,9 +248,11 @@ class ImageService
 
 	    try {
 
-	        $imagine->open($source)
-	                ->crop($point,$box)
-	                ->save($destination, array('quality' => $quality)); 
+	        $image = $imagine->open($source);
+		$filterAutorotate = new \Imagine\Filter\Basic\Autorotate();
+		$filterAutorotate->apply($image);
+	        $image->crop($point,$box)
+	              ->save($destination, array('quality' => $quality)); 
 
 	    } catch (\Exception $e) {
 
@@ -282,9 +284,11 @@ class ImageService
 
 	    try {
 
-	        $imagine->open($source)
-	            ->thumbnail($size, $mode)
-	            ->save($destination, array('quality' => $quality));
+	        $image = $imagine->open($source);
+		$filterAutorotate = new \Imagine\Filter\Basic\Autorotate();
+		$filterAutorotate->apply($image);
+	        $image->thumbnail($size, $mode)
+	              ->save($destination, array('quality' => $quality));
 	
 	    } catch (\Exception $e) {
 
