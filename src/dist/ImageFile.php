@@ -12,5 +12,10 @@ class ImageFile
 
 	public function __construct()
 	{
+        $default = Config::get('image.default');
+
+        $this->url = $default['url'];
+        $this->height = $default['height'];
+        $this->width = $default['width'];
 	}	
 }
