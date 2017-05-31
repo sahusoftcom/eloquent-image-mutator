@@ -9,7 +9,7 @@ class ImageService
 
 	public $imagine=null;
 
-	public static function getImagineObject() 
+	public static function getImagineObject()
 	{
 	    $library = \Config::get('image.library', 'gd');
 
@@ -32,7 +32,7 @@ class ImageService
 
 	public static function copyImage($key, $value)
 	{
-		$fileObject = new \SplFileInfo(public_path().$value->original->url);		
+		$fileObject = new \SplFileInfo(public_path().$value->original->url);
 		$destination = ImageService::getANewFileName($fileObject->getExtension());
 		$destinationDirectory = ImageService::getUploadStoragePath().'/'.dirname($destination);
 		if(!\File::isDirectory($destinationDirectory))
@@ -52,7 +52,7 @@ class ImageService
 
 		$imageObj = new ImageFieldLocal($arrayForDB);
 		return $imageObj;
-	
+
 	}
 
 	public static function uploadImage($key, $value)
@@ -79,14 +79,23 @@ class ImageService
 
 	public static function downloadImage($key, $value)
 	{
-	    $fileObject = new \SplFileInfo($value);		
-
+	  $fileObject = new \SplFileInfo($value);
 		$destination = ImageService::getANewFileName($fileObject->getExtension());
 		$destinationDirectory = ImageService::getUploadStoragePath().'/'.dirname($destination);
 		if(!\File::isDirectory($destinationDirectory))
 		    \File::makeDirectory($destinationDirectory, 0777, true);
 
 		file_put_contents($destinationDirectory.'/'.basename($destination), file_get_contents($value));
+
+		if (empty($fileObject->getExtension())) {
+			$mime = mime_content_type($destinationDirectory.'/'.basename($destination));
+			$mime = explode('/', $mime);
+			if ($mime[0] == 'image') {
+				rename($destinationDirectory.'/'.basename($destination), $destinationDirectory.'/'.basename($destination) . $mime[1]);
+				$destination = $destination . $mime[1];
+			}
+		}
+
 		$urn = ImageService::makeFromFile($destination, basename($destination));
 		$allTheSizes = ImageService::getAllTheSizes($urn);
 		$arrayForDB = [];
@@ -156,7 +165,7 @@ class ImageService
 	    $dimensions = array();
 
 	    $defaultDimensions = \Config::get('image.dimensions');
-	 
+
 	    if (is_array($defaultDimensions))
 	        $dimensions = array_merge($defaultDimensions, $dimensions);
 
@@ -181,14 +190,14 @@ class ImageService
 	        //$targetUrl      = asset($info['dirname'].'/'.$targetDirName.'/'.$fileName);
 
 	        $file = self::getUploadStoragePath().'/'.$info['dirname'].'/'.$targetDirName.'/'.$fileName;
-	        
+
 	        if($getImageSize) {
 	            if(!file_exists($file)) {
 	                $width = 0;
 	                $height = 0;
 	            }
 	            else {
-	                
+
 	                list($width, $height) = getimagesize($file);
 	            }
 	        }
@@ -250,7 +259,7 @@ class ImageService
 
 	        $imagine->open($source)
 	                ->crop($point,$box)
-	                ->save($destination, array('quality' => $quality)); 
+	                ->save($destination, array('quality' => $quality));
 
 	    } catch (\Exception $e) {
 
@@ -258,7 +267,7 @@ class ImageService
 
 	    }
 
-	    return $destination;            
+	    return $destination;
 	}
 
 	public static function resize($source, $destination, $width = 100, $height = null, $crop = false, $quality = 90)
@@ -276,7 +285,7 @@ class ImageService
 
 	    // Now the mode
 	    $mode = $crop ? \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND : \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
-	    
+
 	    if(empty($imagine))
 	        $imagine = self::getImagineObject();
 
@@ -285,7 +294,7 @@ class ImageService
 	        $imagine->open($source)
 	            ->thumbnail($size, $mode)
 	            ->save($destination, array('quality' => $quality));
-	
+
 	    } catch (\Exception $e) {
 
 	        \Log::error('[IMAGE SERVICE] Image resize Failed to crop image  [' . $e->getMessage() . ']');
