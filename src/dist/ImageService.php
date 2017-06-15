@@ -79,7 +79,7 @@ class ImageService
 
 	public static function downloadImage($key, $value)
 	{
-	  fileObject = new \SplFileInfo($value);
+	        $fileObject = new \SplFileInfo($value);
 		$destination = ImageService::getANewFileName(preg_replace('/\?.*/', '', $fileObject->getExtension()));
 		$destinationDirectory = ImageService::getUploadStoragePath().'/'.dirname($destination);
 		if(!\File::isDirectory($destinationDirectory))
