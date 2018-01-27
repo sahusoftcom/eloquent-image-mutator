@@ -8,7 +8,7 @@
         "laravel/framework": "^5.1",
         "imagine/imagine": ">=0.6.3"
     },
-    "license": "Sahu Soft India Private Limited",
+    "license": "MIT",
 
     "autoload": {
         "psr-4": {
